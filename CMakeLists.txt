@@ -7,15 +7,20 @@ cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 # Define a C++ project.
 project(RtMidi LANGUAGES CXX)
 
+# Set standard installation directories.
+include(GNUInstallDirs)
+
+# Control where libraries and executables are placed during the build.
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+
 # Create library target.
 add_library(rtmidi RtMidi.h
                    RtMidi.cpp)
 
 # Add headers destination for install rule.
 set_target_properties(rtmidi PROPERTIES PUBLIC_HEADER RtMidi.h)
-
-# Set standard installation directories.
-include(GNUInstallDirs)
 
 # Set include paths, populate target interface.
 target_include_directories(rtmidi PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
